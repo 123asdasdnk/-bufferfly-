@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Articles</title>
+  <!-- 引用 marked 的 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="./font/iconfont.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<style>
+  .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+
+  .head-container {
+    width: 100%;
+    height: 400px;
+    background-image: url(./static/img/3.webp);
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    z-index: -1;
+
+  }
+
+  .title {
+    font-size: 50px;
+    text-align: center;
+    color: #fff;
+    padding-top: 100px;
+  }
+
+  .author {
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .desc {
+    font-size: 25px;
+    text-align: center;
+    color: #fff;
+  }
+
+  #articles {
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+    background-color: rgba(226, 235, 235, 0.5);
+    border-radius: 10px;
+    float: left;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  #articles img {
+    width: 90%;
+  }
+
+
+  .comments {
+    margin-top: 3rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .comments h3 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .comment-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    resize: vertical;
+  }
+
+  .comment-form button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .comment-form button:hover {
+    background-color: #444;
+  }
+
+  .comment {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .comment img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 1rem;
+  }
+
+  .comment .comment-meta {
+    font-size: 0.8rem;
+    color: #666;
+  }
+
+  /* 文章美化 */
+  /* 基本样式 */
+  #articles {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 标题样式 */
+  #articles h1 {
+    font-size: 2em;
+    margin-bottom: 0.5em;
+    border-bottom: 2px solid #e2e2e2;
+    padding-bottom: 0.3em;
+  }
+
+  #articles h2 {
+    font-size: 1.75em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    border-bottom: 1px solid #e2e2e2;
+    padding-bottom: 0.3em;
+  }
+
+  #articles h3 {
+    font-size: 1.5em;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+  }
+
+  #articles h4,
+  #articles h5,
+  #articles h6 {
+    font-size: 1.25em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+
+  /* 段落样式 */
+  #articles p {
+    margin: 1em 0;
+  }
+
+  /* 链接样式 */
+  #articles a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  #articles a:hover {
+    text-decoration: underline;
+  }
+
+  /* 列表样式 */
+  #articles ul,
+  #articles ol {
+    margin: 1em 0;
+    padding-left: 40px;
+  }
+
+  #articles ul li,
+  #articles ol li {
+    margin-bottom: 0.5em;
+  }
+
+  /* 引用样式 */
+  #articles blockquote {
+    margin: 1em 0;
+    padding: 0.5em 10px;
+    color: #555;
+    border-left: 4px solid #ddd;
+    background-color: #f9f9f9;
+  }
+
+  /* 代码块样式 */
+  #articles pre {
+    position: relative;
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  #articles code {
+    background: #f4f4f4;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  /* 复制按钮样式 */
+  .copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
+  .copy-button:hover {
+    background: #0056b3;
+  }
+
+
+  /* 表格样式 */
+  #articles table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+  }
+
+  #articles table th,
+  #articles table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+
+  #articles table th {
+    background-color: #f2f2f2;
+  }
+
+  /* 图片样式 */
+  #articles img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+
+ /* 目录样式 */
+#toc {
+  float:right;
+  right: 0;
+  top: 300px; /* 确保不覆盖顶部图片 */
+  width: 30%;
+  height: calc(100% - 300px); /* 调整高度以适应页面 */
+  overflow-y: auto;
+  background: #f9f9f9;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#toc ul {
+  list-style: none;
+  padding: 0;
+}
+
+#toc li {
+  margin-bottom: 5px;
+}
+
+.toc-level-1 {
+  font-weight: bold;
+}
+
+.toc-level-2 {
+  margin-left: 20px;
+}
+
+/* 标签样式 */
+.article-tag {
+    display: inline-block;
+    background-color:rgba(133, 198, 3, 0.5); /* 背景颜色 */
+    color: #fff; /* 文字颜色 */
+    padding: 5px 10px; /* 内边距 */
+    border-radius: 15px; /* 圆角 */
+    font-size: 14px; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    margin-top: 5px; /* 上边距 */
+
+  
+}
+</style>
+
+<body>
+  
+<hr>
+  <!-- 文章标题，略缩图 -->
+  <div class="head-container" id="head-container" style="float: left;">
+    
+   <!-- 返回按钮 -->
+  <div class="backbuttton">
+    <a href="./index.html">
+      <svg class="icon" aria-hidden="true" style="color: white;">
+        <use xlink:href="#icon-xuanxiangqiaguanbianniu"></use>
+      </svg>
+    </a>
+  </div>
+  
+    <div class="head">
+      <div id="title" class="title">我是文章标题</div>
+      <div id="author" class="author">我是文章作者</div>
+      <div style=" text-align: center; /* 文字居中 */"><span id="article-tag" class="article-tag">我是标签</span></div>
+      <div id="desc" class="desc">描述</div>
+    </div>
+    
+  </div>
+
+
+
+  <!-- 文章内容模块 -->
+  <div id="articles">
+    <!-- 代码复制按钮 -->
+    <!-- <pre><code>console.log('Hello, world!');</code></pre> -->
+
+  </div>
+
+  <!-- 目录 -->
+  <div id="toc">
+    <ul id="directory">
+    </ul>
+  </div>
+
+
+  <!-- 评论系统 -->
+  <div class="comments">
+
+    <div class="comment-form">
+      <textarea id="comment-text" rows="4" placeholder="输入你的评论..."></textarea>
+      <button onclick="submitComment()">提交评论</button>
+      <div class="login-prompt" id="login-prompt" style="display: none;">
+        <p>请 <a href="login.html">登录</a> 以发表评论。</p>
+      </div>
+    </div>
+
+    <div id="comments-list">
+      <!-- 这里的评论会通过JavaScript动态填充 -->
+      <div class="comment">
+        <div class="comment-details">
+          <img src="./static/img/鬼刀.jpg" alt="头像1">
+          <span class="comment-nickname">乞力马扎罗:</span>
+          <span class="comment-content">讲的非常清楚明白</span>
+          <div class="comment-time" style="float: right;">2024年10月4日</div>
+
+        </div>
+        <!-- 管理员可以删除 -->
+        <button style="right: inherit;">删除</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./static/js/article.js"></script>
+
+</body>
+
+<script>
+
+
+  //登录逻辑
+  let islogin = false;
+
+  //获取session,当前登录的用户
+  let data = sessionStorage.getItem("loginUser");
+  let user = JSON.parse(data);
+
+  if (user != null) {
+    console.log(user.nickname);
+    console.log(user)
+    console.log(user.uid)
+    islogin = true;
+  }
+
+  //评论需要登录显示
+  const loginPrompt = document.getElementById("login-prompt");
+  if (islogin) {
+    loginPrompt.style.display = "none";
+    document.getElementById("comment-text").disabled = false;
+    document.querySelector(".comment-form button").disabled = false;
+    loginPrompt.style.display = "none";
+  } else {
+    loginPrompt.style.display = "block";
+  }
+
+  //--------------
+
+  const searchParams = new URLSearchParams(window.location.search);
+
+  // console.log(searchParams.get('id'));   //获取浏览器页面url的id参数
+
+  var id = searchParams.get('id');
+  
+  console.log("当前文章id为："+id);
+  $(document).ready(function () {
+    fetchArticleIds();
+  });
+
+  var articledata;
+
+  //先请求数据
+  function fetchArticleIds() {
+    $.ajax({
+      url: 'http://localhost:8081/article/getAllArticleList',
+      method: 'GET',
+      success: function (data) {
+        console.log('Fetched articles:', data); // 打印获取到的数据
+        console.log(data[0].article_id);
+        articledata = data;
+        console.log(articledata);
+        console.log(articledata[0].article_id);
+
+        for (var i = 0; i < articledata.length; i++) {
+          if (articledata[i].article_id == id) {
+
+            $.ajax({
+                url: 'http://localhost:8081/tag/getTagById',
+                method: 'GET',
+                data: {
+                    tag_id: articledata[i].tag_id,
+                },
+                success: function (data) {
+                    console.log("标签为:" + data.tag_name);
+                    
+            const randomNumber = articledata[i].article_id % 10 >= 9 ? 9 : articledata[i].article_id % 10 + 1;
+            //根据实际内容来渲染标题作者描述,以及网页标题
+
+            console.log("渲染头部:"+ articledata[i].title);
+            document.getElementById("title").innerHTML = articledata[i].title;
+
+            document.title = articledata[i].title;
+
+            document.getElementById("author").innerHTML = articledata[i].author;
+            document.getElementById("desc").innerHTML = articledata[i].desc;
+            document.getElementById("article-tag").innerHTML = data.tag_name;
+
+            //根据index界面的背景图片，来渲染
+            var div = document.getElementById("head-container");
+            div.style.backgroundImage = "url(./static/img/" + randomNumber + ".webp)";
+            
+       
+                }
+            })
+            
+
+
+            
+            // const randomNumber = articledata[i].article_id % 10 > 7 ? 7 : articledata[i].article_id % 10;
+            // //根据实际内容来渲染标题作者描述,以及网页标题
+
+            // console.log("渲染头部:"+ articledata[i].title);
+            // document.getElementById("title").innerHTML = articledata[i].title;
+
+            // document.title = articledata[i].title;
+
+            // document.getElementById("author").innerHTML = articledata[i].author;
+            // document.getElementById("desc").innerHTML = articledata[i].desc;
+
+            // //根据index界面的背景图片，来渲染
+            // var div = document.getElementById("head-container");
+            // div.style.backgroundImage = "url(./static/img/" + randomNumber + ".webp)";
+            // break;
+            break;
+          }
+        }
+      },
+      error: function (error) {
+        console.error('Error fetching article IDs:', error);
+      }
+    });
+  }
+
+  
+  // 假设你有一个包含 Markdown 文件路径的数组
+  var url = './posts/' + id + '.md';
+  const markdownFiles = [url];
+
+  // 使用 fetch API 获取并渲染 Markdown 文件
+  async function fetchAndRenderMarkdown(file) {
+    const response = await fetch(file);
+    const markdown = await response.text();
+    const htmlContent = marked.parse(markdown);
+    return htmlContent;
+  }
+
+
+  // 渲染所有文章
+  async function renderArticles() {
+    const articlesContainer = document.getElementById('articles');
+    for (const file of markdownFiles) {
+      const articleHtml = await fetchAndRenderMarkdown(file);
+      const articleElement = document.createElement('div');
+      articleElement.innerHTML = articleHtml;
+      articlesContainer.appendChild(articleElement);
+
+      // 为每个代码块添加复制按钮
+      const codeBlocks = document.querySelectorAll("#articles pre");
+
+      codeBlocks.forEach((block, index) => {
+        const button = document.createElement("button");
+        button.className = "copy-button";
+        button.textContent = "复制";
+        button.addEventListener("click", function () {
+          const code = block.querySelector("code").textContent;
+          navigator.clipboard.writeText(code).then(() => {
+            button.textContent = "已复制";
+            setTimeout(() => {
+              button.textContent = "复制";
+            }, 2000);
+          }).catch(err => {
+            console.error('复制失败:', err);
+          });
+        });
+        block.appendChild(button);
+      });
+    }
+    //在渲染文章完成之后渲染目录
+    generateTOC();
+  }
+
+  // 页面加载完成后渲染文章
+  document.addEventListener('DOMContentLoaded', renderArticles);
+
+
+  //渲染目录
+  function generateTOC() {
+  const tocContainer = document.getElementById('directory');
+  const headers = document.querySelectorAll('#articles h1, #articles h2');
+  const toc = [];
+
+  headers.forEach((header, index) => {
+    const id = `header-${index}`;
+    header.id = id;
+
+    const li = document.createElement('li');
+    li.className = header.tagName === 'H1' ? 'toc-level-1' : 'toc-level-2';
+
+    const a = document.createElement('a');
+    a.href = `#${id}`;
+    a.textContent = header.textContent;
+
+    li.appendChild(a);
+    toc.push(li);
+  });
+
+  toc.forEach(item => tocContainer.appendChild(item));
+}
+
+  //加载评论  
+  loadComments();
+
+  //提交评论
+  function submitComment() {
+    //获取文本域内容
+    const commentText = document.getElementById("comment-text").value;
+    console.log(commentText)
+
+    // 验证评论是否为空
+    if (commentText.trim() === "") {
+      alert("评论不能为空！");
+      return;
+    }
+
+    // 验证评论是否超过200字
+    if (commentText.length > 200) {
+      alert("评论不能超过200字！");
+      return;
+    }
+
+    console.log("要插入的信息为:" + commentText + "uid:" + user.uid + "文章id:" + id);
+    //插入评论
+    $.ajax({
+      url: 'http://localhost:8081/comment/addComment',
+      method: 'POST',
+      data: {
+        content: commentText,
+        uid: user.uid,
+        article_id: id,
+      },
+      success: function (data) {
+        console.log('Comment submitted successfully:', data);
+        //将文本域内容置为空并弹窗提示提交成功
+        document.getElementById("comment-text").value = "";
+        alert("评论提交成功！");
+        // 重新加载评论列表
+        loadComments();
+      }
+    })
+  }
+
+  //-------------------
+  //渲染评论
+
+  //有个问题，昵称还需要uid来再获取一次!!!
+  function loadComments() {
+    $.ajax({
+      url: 'http://localhost:8081/comment/getCommentListOrderByTimeDescByArticle_Id',
+      type: "GET",
+      data: {
+        article_id: id,
+      },
+      success: function (data) {
+        console.log("当前文章的评论有:" + data);
+
+        const commentsList = document.getElementById("comments-list");
+        commentsList.innerHTML = ""; // 清空现有的评论
+
+        data.forEach(comment => {
+          const commentElement = document.createElement("div");
+          commentElement.className = "comment";
+
+          const commentDetails = document.createElement("div");
+          commentDetails.className = "comment-details";
+
+          const avatar = document.createElement("img");
+          avatar.src = "./static/img/鬼刀.jpg"; // 替换为实际的头像路径
+          avatar.alt = "头像";
+
+          console.log("该评论uid为: " + comment.uid);
+          //利用uid获取对应的user对象
+          $.ajax({
+            url: 'http://localhost:8081/user/getUserById',
+            type: "GET",
+            data: {
+              uid: comment.uid,
+            },
+            success: function (data) {
+              console.log("该评论用户信息为:" + data);
+              // avatar.src = data.avatar; 头像信息
+              nickname.textContent = data.nickname + ":";
+            },
+          })
+
+
+          const nickname = document.createElement("span");
+          nickname.className = "comment-nickname";
+          nickname.textContent = comment.nickname + ":";
+
+          const content = document.createElement("span");
+          content.className = "comment-content";
+          content.textContent = comment.content;
+
+          const time = document.createElement("div");
+          time.className = "comment-time";
+          time.style.float = "right";
+          time.textContent = new Date(comment.time).toLocaleString();
+
+          commentDetails.appendChild(avatar);
+          commentDetails.appendChild(nickname);
+          commentDetails.appendChild(content);
+          commentDetails.appendChild(time);
+
+          commentElement.appendChild(commentDetails);
+
+          // 如果是管理员，可以添加删除按钮
+          if (comment.isAdmin) {
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "删除";
+            deleteButton.onclick = function () {
+              deleteComment(comment.id);
+            };
+            commentElement.appendChild(deleteButton);
+          }
+
+          commentsList.appendChild(commentElement);
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error('Error loading comments:', error);
+        alert("加载评论时出错，请稍后再试。");
+      }
+    });
+  }
+</script>
+
+</html>

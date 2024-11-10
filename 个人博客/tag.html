@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标签墙</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .tag-wall {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 600px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tag:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        #backbuttton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <a id="backbuttton" href="./index.html">回到主页</a>
+    <div class="tag-wall" id="tag-wall">
+        <!-- 标签将动态添加到这里 -->
+    </div>
+</body>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://localhost:8081/tag/getTagList',
+            method: 'GET',
+            success: function(data) {
+                console.log('TagList is:' + data); // 打印获取到的数据
+                var tags = data;
+                var tagWall = $('#tag-wall');
+                tags.forEach(function(tag) {
+                    var tagElement = $('<div class="tag"></div>').text(tag.tag_name + ' (' + tag.count + ')');
+                    tagWall.append(tagElement);
+                });
+            },
+            error: function(error) {
+                console.error('出错啦', error);
+            }
+        });
+    });
+</script>
+
+</html>

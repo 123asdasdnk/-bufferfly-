@@ -1,0 +1,105 @@
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+header {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: -50px; /* 调整导航栏向上移动 */
+    left: 0;
+    z-index: 1000;
+}
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+    padding-top: 80px; /* Adjust for fixed header */
+}
+
+.timeline-container {
+    max-height: calc(100vh - 160px); /* Adjust for header and some margin */
+    overflow-y: auto; /* Scrollbar if content overflows */
+}
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+    list-style: none;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background: #ddd;
+    top: 0;
+    bottom: 0;
+    left: 30px;
+}
+.timeline-item {
+    position: relative;
+    margin: 1rem 0;
+    padding-left: 50px;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #007BFF;
+    border-radius: 50%;
+    left: 20px;
+    top: 0;
+    transform: translateY(10px);
+}
+.timeline-item h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+.timeline-item p {
+    margin: 0.5rem 0;
+    color: #666;
+}
+.timeline-item a {
+    color: #007BFF;
+    text-decoration: none;
+}
+.timeline-item a:hover {
+    text-decoration: underline;
+}
+.article-content {
+    display: none;
+    padding: 2rem;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    width: 80%;
+    max-width: 800px;
+    z-index: 1001;
+}
+.article-content h2 {
+    margin-top: 0;
+}
+.close-btn {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+}
+.close-btn:hover {
+    background: #0056b3;
+}

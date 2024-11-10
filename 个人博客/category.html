@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类页面</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 是一个 CSS 属性，用于指定网页文本的字体。它定义了一系列字体，浏览器会按照顺序使用这些字体，直到找到一个可用的为止。具体来说：
+
+Segoe UI: 微软设计的一种字体，常用于 Windows 系统的用户界面。
+Tahoma: 一种无衬线字体，常用于网页设计。
+Geneva: 一种无衬线字体，主要用于 Mac 系统。
+Verdana: 一种无衬线字体，专为屏幕显示设计，具有良好的可读性。
+sans-serif: 一种通用字体类别，表示无衬线字体。如果前面的字体都不可用，浏览器会使用系统默认的无衬线字体。 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            background-image: url(./static/img/9.webp);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .category {
+            width: 48%;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .category h2 {
+            margin-top: 0;
+            color: #555;
+            font-size: 1.5em;
+        }
+
+        .category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category ul li {
+            margin: 10px 0;
+        }
+
+        .category ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 1.1em;
+            transition: color 0.3s;
+        }
+
+        .category ul li a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        #backbuttton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <a id="backbuttton" href="./index.html">回到主页</a>
+    <div class="container">
+        <h1>分类</h1>
+        <div class="categories" id="categories">
+            <!-- 分类列表将动态插入这里 -->
+        </div>
+    </div>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('分类页面加载完成');
+        renderCategories();
+    });
+
+    // 获取分类列表
+    function getCategoryList(callback) {
+        $.ajax({
+            url: 'http://localhost:8081/category/getCategoryList',
+            type: "GET",
+            success: function (data) {
+                callback(data);
+            },
+            error: function (error) {
+                console.error("获取分类列表失败", error);
+            }
+        });
+    }
+
+    // 获取文章列表
+    function getArticlesByCategoryId(categoryId, callback) {
+        $.ajax({
+            url: 'http://localhost:8081/article/getArticleByCategory_Id',
+            type: "GET",
+            data: {
+                category_id: categoryId
+            },
+            success: function (data) {
+                callback(data);
+            },
+            error: function (error) {
+                console.error("获取文章列表失败", error);
+            }
+        });
+    }
+
+    // 渲染分类和文章列表
+    function renderCategories() {
+        getCategoryList(function (categoryList) {
+            console.log("分类列表: ", categoryList);
+            var categoriesContainer = $('#categories');
+            categoriesContainer.empty(); // 清空现有内容
+
+            categoryList.forEach(function (category) {
+                var categoryId = category.category_id;
+                var categoryHtml = `
+                    <div class="category" data-category="${categoryId}">
+                        <h2>${category.category_name}</h2>
+                        <ul id="articles-${categoryId}"></ul>
+                    </div>
+                `;
+                categoriesContainer.append(categoryHtml);
+
+                // 获取并渲染文章列表
+                getArticlesByCategoryId(categoryId, function (articleList) {
+                    var articlesContainer = $(`#articles-${categoryId}`);
+                    articleList.forEach(function (article) {
+                        var articleHtml = `<li><a href="./article.html?id=${article.article_id}">${article.title}</a></li>`;
+                        articlesContainer.append(articleHtml);
+                    });
+                });
+            });
+        });
+    }
+</script>
+
+</html>

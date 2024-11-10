@@ -1,0 +1,230 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    header {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: -50px;
+        /* 调整导航栏向上移动 */
+        left: 0;
+        z-index: -10;
+        
+    }
+
+    		
+		
+body {
+
+  background-image: url(./static/img/5.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* 背景图固定，不随滚动条滚动而滚动 */
+  background-attachment: fixed;
+}
+
+    .archive-container {
+        width: 80%;
+        max-width: 1200px;
+        margin: auto;
+        padding-top: 80px;
+        /* Adjust for fixed header */
+        
+    }
+
+    .timeline-container {
+        height: auto;
+        /* Adjust for header and some margin */
+        overflow-y: auto;
+
+      
+    }
+
+    .timeline {
+        position: relative;
+        padding: 2rem 0;
+        list-style: none;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        width: 2px;
+        background: #ddd;
+        top: 0;
+        bottom: 0;
+        left: 30px;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin: 1rem 0;
+        padding-left: 50px;
+    }
+
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: #007BFF;
+        border-radius: 50%;
+        left: 20px;
+        top: 0;
+        transform: translateY(10px);
+    }
+
+    .timeline-item h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #333;
+    }
+
+    .timeline-item p {
+        margin: 0.5rem 0;
+        color: #666;
+    }
+
+    .timeline-item a {
+        color: #007BFF;
+        text-decoration: none;
+        position: relative; /* 将位置设置为相对定位 */
+    }
+
+    .timeline-item a:hover {
+        text-decoration: underline;
+    }
+
+    .archive-article-content {
+        display: none;
+        padding: 2rem;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -20%);
+        width: 80%;
+        max-width: 800px;
+        z-index: 1001;
+    }
+
+    .archive-article-content h2 {
+        margin-top: 0;
+    }
+
+    /* .close-btn {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        } */
+    /* .close-btn:hover {
+            background: #0056b3;
+        } */
+
+         		
+.archivecontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* 可根据需要调整高度 */
+  backdrop-filter: blur(10px); /* 调整模糊程度 */
+  background-color: rgba(255, 255, 255, 0.05); /* 调整背景颜色和透明度 */
+  border-radius: 10px;
+}
+
+    		
+.archivecontainer #backbuttton {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    color: white;
+    text-decoration: none;
+}
+
+    
+	
+
+</style>
+
+
+
+    <!-- 写css让archivecontainer居中 -->
+
+
+<div class="archivecontainer">
+    <a id="backbuttton" href="./index.html">回到主页</a>
+    <div class="timeline-container">
+        <ul class="timeline" id="timeline">
+            <!-- 时间轴文章项会通过 JavaScript 动态填充 -->
+        </ul>
+    </div>
+    <div id="archive-article-view" class="archive-article-content">
+        <!-- <button class="close-btn" onclick="closeArticle()">关闭</button> -->
+        <div id="archive-article-content">
+            <!-- 文章内容将通过 JavaScript 动态填充 -->
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    function showArticle(id) {
+        const article = articles.find(a => a.id === id);
+        if (article) {
+            articleContent.innerHTML = `
+                    <h2>${article.title}</h2>
+                    <p>${article.desc}</p>
+                `;
+            articleView.style.display = 'block';
+        }
+    }
+
+    function closeArticle() {
+        articleView.style.display = 'none';
+    }
+
+    $.ajax({
+        url: ' http://localhost:8081/article/getarticlelistorderByDesc',
+        type: 'GET',
+        success: function (data) {
+            console.log("获取到的数据为: " + data);
+            const articles = data;
+            for (var i = 0; i < articles.length; i++) {
+                console.log(articles[i].title);
+            }
+            const timelineElement = document.getElementById('timeline');
+            const articleView = document.getElementById('archive-article-view');
+            const articleContent = document.getElementById('archive-article-content');
+            // 填充时间轴
+            articles.forEach(article => {
+                const item = document.createElement('li');
+                item.className = 'timeline-item';
+                item.innerHTML = `
+                <h3>${article.title}</h3>
+                <p>${article.upload_time}</p>
+                <p><a href="article.html?id=${article.article_id}">阅读更多</a></p>
+            `;
+                timelineElement.appendChild(item);
+            });
+
+
+        },
+        error: function (error) {
+            console.error('Error fetching archives:', error);
+        }
+    });
+
+
+
+
+</script>

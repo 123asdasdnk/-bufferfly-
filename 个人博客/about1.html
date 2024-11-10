@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- logo -->
+    <link rel="icon" href="./static/img/飞船.png" type="image/x-icon" />
+    <title>自然选择の小站</title>
+    <!-- 请勿在项目正式环境中引用该 layui.css 地址 -->
+    <link href="//unpkg.com/layui@2.9.16/dist/css/layui.css" rel="stylesheet">
+    <!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+    <script src="//unpkg.com/layui@2.9.16/dist/layui.js"></script>
+    <!-- 打字机效果引入 -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <!-- 引入自定义css -->
+    <link href="./static/css/index.css" rel="stylesheet">
+    <link href="./static/css/about.css" rel="stylesheet">
+    <!-- 引入阿里巴巴图标库symbol引入 -->
+    <script src="./font/iconfont.js"></script>
+</head>
+
+<body>
+
+    <div class="nav">
+        <ul class="layui-nav" style="right: 2.5%">
+            <li class="layui-nav-item" style="float: left; left: 2.1%;">
+                <div img="./static/img/飞船.png">
+                    <a href="./index.html" style="color: aliceblue; font-size: 15px; font-weight: bold;">
+                        <svg class="icon" aria-hidden="true" style="font-size:30px;">
+                            <use xlink:href="#icon-feichuan"></use>
+                        </svg> 自然选择の小站
+                    </a>
+                </div>
+            </li>
+
+            <li class="layui-nav-item">
+                <a href="index.html">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-zhuye"></use>
+                    </svg> 主页
+                </a>
+            </li>
+            <!-- <li class="layui-nav-item">
+          <a href="javascript:;">文章</a>
+        </li> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-wenzhang"></use>
+                    </svg> 文章
+                </a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-xiangzi"></use>
+                            </svg> 分类
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-a-addtag"></use>
+                            </svg> 标签
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-guidang"></use>
+                            </svg> 归档
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-gengduo"></use>
+                    </svg> 更多作品
+                </a>
+                <dl class="layui-nav-child" style="text-align: left;">
+                    <dd>
+                        <a href="../前端小项目/个人主页/myblog-home-master/index.html">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-daohang"></use>
+                            </svg> 个人导航页
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="https://123asdasdnk.github.io">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-zhuye"></use>
+                            </svg> 旧版个人博客
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="../前端小项目/Web音乐播放器/index.html">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-a-Sheetmusic"></use>
+                            </svg> 音乐
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-houtaiguanli"></use>
+                            </svg> 博客后台管理
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-this">
+                <a href="./about.html">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-guanyuwomen"></use>
+                    </svg> 关于笔者
+                </a>
+            </li>
+
+            <!-- 黑暗模式，设定一个右浮动，使其在同一条线上 -->
+            <!-- <div class="layui-form">
+                <div class="layui-form-item">
+                    <input type="checkbox" name="CCC" value="2" lay-skin="switch">
+                    <div lay-checkbox>
+                        <i class="layui-icon layui-icon-moon" value="1"></i> |
+                        <i class="layui-icon layui-icon-light" value="0"></i>
+                    </div>
+                </div>
+            </div> -->
+
+            <li class="layui-nav-item" lay-unselect>
+                <a href="javascript:;">
+                    <img src="./static/img/鬼刀.jpg" class="layui-nav-img">
+                </a>
+                <dl class="layui-nav-child" style="text-align: left;">
+                    <dd>
+                        <a href="javascript:;">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-shezhi"></use>
+                            </svg> 设置
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="javascript:;">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-gerenxinxi"></use>
+                            </svg> 个人信息
+                        </a>
+                    </dd>
+                    <hr>
+                    <dd>
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-tuichu"></use>
+                            </svg> 退出
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+
+        </ul>
+    </div>
+
+
+
+    <span>
+        <img class="aboutbg" src="./static/img/1.webp">
+    </span>
+
+
+
+    <!-- 个人信息模块 -->
+    <div class="profile">
+        <div class="imgbox">
+            <img src="./static/img/鬼刀.jpg" alt="个人头像">
+        </div>
+
+        <h1>乞力马扎罗</h1>
+        <p>全栈开发者 | 博客作者</p>
+        <p>热爱编程和写作，喜欢分享技术经验和学习资源。</p>
+        <div class="links">
+            <a href="https://space.bilibili.com/520378629?spm_id_from=333.999.0.0">
+                <svg class="icon" aria-hidden="true" style="background-color:transparent; font-size: 20px;">
+                    <use xlink:href="#icon-bilibili"></use>
+                </svg>
+            </a>
+            <a href="https://github.com/123asdasdnk">
+                <svg class="icon" aria-hidden="true" style="background-color:transparent; font-size: 20px;">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            </a>
+            <a href="https://im.qq.com">
+                <svg class="icon" aria-hidden="true" style="background-color:transparent; font-size: 20px;">
+                    <use xlink:href="#icon-QQ"></use>
+                </svg>
+            </a>
+            <a href="https://weixin.qq.com/">
+                <svg class="icon" aria-hidden="true" style="background-color:transparent; font-size: 20px;">
+                    <use xlink:href="#icon-weixin"></use>
+                </svg>
+            </a>
+            <a href="https://music.163.com/">
+                <svg class="icon" aria-hidden="true" style="background-color:transparent; font-size: 20px;">
+                    <use xlink:href="#icon-wangyiyunyinleclick"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <!-- 爱好标签 -->
+    <div class="tags">
+        <h2>爱好领域</h2>
+        <div id="tag-container">
+            <!-- 这里的标签会通过JavaScript动态填充 -->
+            <div class="tag" style="opacity: 0.8;"><input type="checkbox" id="tag1"><label for="tag1">编程</label></div>
+            <div class="tag" style="opacity: 0.8;"><input type="checkbox" id="tag2"><label for="tag2">科幻</label></div>
+            <div class="tag" style="opacity: 0.8;"><input type="checkbox" id="tag3"><label for="tag3">旅行</label></div>
+            <div class="tag" style="opacity: 0.8;"><input type="checkbox" id="tag4"><label for="tag4">天文</label></div>
+            <div class="tag" style="opacity: 0.8;"><input type="checkbox" id="tag5"><label for="tag5">摄影</label></div>
+        </div>
+    </div>
+
+    <footer class="footer" style="display: none;">
+        <div class="footer-content" >
+            <p>© 2024 自然选择の小站. All Rights Reserved.</p>
+            <p>Designed by 乞力马扎罗</p>
+            <p>禁止对网站的任何形式攻击，使用必须获得作者许可，否则按侵权处理</p>
+        </div>
+    </footer>
+
+
+    <!-- 引入自定义js -->
+    <script src="./static/js/about.js"></script>
+
+</body>
+
+</html>

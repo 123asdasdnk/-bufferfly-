@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- 导航栏 -->
+
+    <div class="nav" th:fragment="title" style="position: relative;">
+        <ul class="layui-nav">
+            <li class="layui-nav-item" style="float: left">
+                <div img="./static/img/飞船.png">
+                    <a href="./index.html" style="color: aliceblue; font-size: 15px; font-weight: bold;">
+                        <svg class="icon" aria-hidden="true" style="font-size:30px;">
+                            <use xlink:href="#icon-feichuan"></use>
+                        </svg> 自然选择の小站
+                    </a>
+                </div>
+            </li>
+
+            <li class="layui-nav-item layui-this item">
+                <a href="./index.html">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-zhuye"></use>
+                    </svg> 主页
+                </a>
+            </li>
+            <!-- <li class="layui-nav-item">
+      <a href="javascript:;">文章</a>
+    </li> -->
+            <li class="layui-nav-item item">
+                <a href="javascript:;">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-wenzhang"></use>
+                    </svg> 文章
+                </a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-xiangzi"></use>
+                            </svg> 分类
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-a-addtag"></use>
+                            </svg> 标签
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-guidang"></use>
+                            </svg> 归档
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item item">
+                <a href="javascript:;">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-gengduo"></use>
+                    </svg> 更多作品
+                </a>
+                <dl class="layui-nav-child" style="text-align: left;">
+                    <dd>
+                        <a href="../前端小项目/个人主页/myblog-home-master/index.html">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-daohang"></use>
+                            </svg> 个人导航页
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="https://123asdasdnk.github.io">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-zhuye"></use>
+                            </svg> 旧版个人博客
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="../前端小项目/Web音乐播放器/index.html">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-a-Sheetmusic"></use>
+                            </svg> 音乐
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-houtaiguanli"></use>
+                            </svg> 博客后台管理
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item item">
+                <a href="./about.html">
+                    <svg class="icon" aria-hidden="true" style="font-size:25px">
+                        <use xlink:href="#icon-guanyuwomen"></use>
+                    </svg> 关于笔者
+                </a>
+            </li>
+
+
+
+            <!-- 黑暗模式-->
+            <div class="layui-form item">
+                <div class="layui-form-item">
+                    <input type="checkbox" name="CCC" value="2" lay-skin="switch">
+                    <div lay-checkbox>
+                        <i class="layui-icon layui-icon-moon"></i> |
+                        <i class="layui-icon layui-icon-light"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 用户模块 -->
+            <li class="layui-nav-item item" lay-unselect>
+                <a href="javascript:;" id="user-avatar">
+                    <img src="./static/img/OIP.jpg" class="layui-nav-img" id="avatar-img">
+                </a>
+                <dl class="layui-nav-child" style="text-align: left;" id="user-menu">
+                    <!-- 登录前显示 -->
+                    <dd id="login-option">
+                        <a href="./login.html">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-denglu"></use>
+                            </svg> 登录
+                        </a>
+                    </dd>
+                    <!-- 登录后显示 -->
+                    <dd class="logged-in" style="display: none;">
+                        <a href="javascript:;">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-shezhi"></use>
+                            </svg> 设置
+                        </a>
+                    </dd>
+                    <dd class="logged-in" style="display: none;">
+                        <a href="javascript:;">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-gerenxinxi"></use>
+                            </svg> 个人信息
+                        </a>
+                    </dd>
+                    <hr class="logged-in" style="display: none;">
+                    <dd class="logged-in" style="display: none;">
+                        <a href="">
+                            <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                <use xlink:href="#icon-tuichu"></use>
+                            </svg> 退出
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+
+        </ul>
+    </div>
+
+
+</body>
+</html>

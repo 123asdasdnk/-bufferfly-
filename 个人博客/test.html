@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/outeres@0.0.10/dist/layui.css">
+    <script src="https://unpkg.com/outeres@0.0.10/dist/layui.js"></script>
+</head>
+<body>
+    <div style="float: right;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+<label style="color: #fff;">暗黑模式</label>
+
+<div class="layui-form">
+    <div class="layui-form-item">
+        <input type="checkbox" name="CCC" value="2" lay-skin="switch">
+        <div lay-checkbox>
+            <i class="layui-icon layui-icon-moon"></i> |
+            <i class="layui-icon layui-icon-light"></i>
+        </div>
+    </div>
+</div>
+
+<style>
+    .layui-form-checkbox {
+        color: #fff;
+    }
+</style>
+
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+        form.on('checkbox(CCC)', function (data) {
+            if (data.value == 2) {
+                document.body.classList.toggle('dark');
+            }
+        });
+    });
+</script>
+</body>
+</html>

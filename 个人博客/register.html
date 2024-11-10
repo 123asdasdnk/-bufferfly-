@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="./static/css/login.css">
+    <!-- 引入jquery -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('./path-to-your-background.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        .login-card {
+            background: rgba(255, 255, 255, 0.2); /* 半透明白色背景 */
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
+            -webkit-backdrop-filter: blur(10px); /* Safari 支持 */
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        .login-card h2 {
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .back-to-login {
+            margin-top: 20px;
+        }
+        .back-to-login a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<div class="login-container">
+    <div class="login-card">
+        <h2>注册</h2>
+        <form id="register-form" action="" method="post">
+            <div class="input-group">
+                <label for="username">用户名</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="confirm-password">确认密码</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="input-group">
+                <label for="nickname">昵称</label>
+                <input type="text" id="nickname" name="nickname" required>
+            </div>
+            <button type="button" onclick="register()">注册</button>
+        </form>
+        <div class="back-to-login">
+            <a href="./login.html">点我回到登录</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function register() {
+    console.log("注册");
+
+    var password = $("#password").val();
+    var confirmPassword = $("#confirm-password").val();
+
+    if (password !== confirmPassword) {
+        alert("密码和确认密码不一致");
+        return;
+    }
+
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        url: "http://localhost:8081/user/addUser", // 请求路径
+        type: "POST", // 请求类型
+        data: { // 传递的参数
+            "username": $("#username").val(),
+            "password": $("#password").val(),
+            "nickname": $("#nickname").val()
+        },
+        success: function(result) { // 如果响应成功了(有响应)，则执行此回调函数 result 表示后端返回的结果
+            alert("注册成功");
+            window.location.href = "login.html"; // 页面跳转到登录页面
+        },
+        error: function() {
+            alert("注册失败，请稍后重试");
+        }
+    });
+}
+</script>
+
+</html>

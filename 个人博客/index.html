@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- logo -->
+    <link rel="icon" href="./static/img/飞船.png" type="image/x-icon" />
+    <title>自然选择の小站</title>
+    <!-- 请勿在项目正式环境中引用该 layui.css 地址 -->
+    <link href="//unpkg.com/layui@2.9.16/dist/css/layui.css" rel="stylesheet">
+    <!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+    <script src="//unpkg.com/layui@2.9.16/dist/layui.js"></script>
+    <!-- 打字机效果引入 -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+    <!-- 引入自定义css -->
+    <link href="./static/css/index.css" rel="stylesheet">
+    <!-- 引入阿里巴巴图标库symbol引入 -->
+    <script src="./font/iconfont.js"></script>
+
+    <!-- 引入黑暗模式 -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/layui-theme-dark/dist/layui-theme-dark.css"> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./static/js/archive.js"></script>
+    
+    <style>
+        .article-tag {
+    display: inline-block;
+    background-color:rgba(133, 198, 3, 0.5); /* 背景颜色 */
+    color: #fff; /* 文字颜色 */
+    padding: 5px 10px; /* 内边距 */
+    border-radius: 15px; /* 圆角 */
+    font-size: 14px; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    margin-top: 5px; /* 上边距 */
+}
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="MainContainer">
+        <div class="nav" style="position: relative;">
+            <ul class="layui-nav">
+                <li class="layui-nav-item" data-content="index" style="float: left">
+                    <div img="./static/img/飞船.png">
+                        <a href="./index.html" style="color: aliceblue; font-size: 15px; font-weight: bold;">
+                            <svg class="icon" aria-hidden="true" style="font-size:30px;">
+                                <use xlink:href="#icon-feichuan"></use>
+                            </svg>
+                            自然选择の小站
+                        </a>
+                    </div>
+                </li>
+
+                <li class="layui-nav-item layui-this item" data-content="index">
+                    <a href="./index.html">
+                        <svg class="icon" aria-hidden="true" style="font-size:25px">
+                            <use xlink:href="#icon-zhuye"></use>
+                        </svg>
+                        主页
+                    </a>
+                </li>
+                <!-- <li class="layui-nav-item">
+      <a href="javascript:;">文章</a>
+    </li> -->
+                <li class="layui-nav-item item">
+                    <a href="javascript:;">
+                        <svg class="icon" aria-hidden="true" style="font-size:25px">
+                            <use xlink:href="#icon-wenzhang"></use>
+                        </svg>
+                        文章
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd data-content="category">
+                            <a href="category.html">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-xiangzi"></use>
+                                </svg>
+                                分类
+                            </a>
+                        </dd>
+                        <dd data-content="tag">
+                            <a href="tag.html">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-a-addtag"></use>
+                                </svg>
+                                标签
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="archive.html" id="archive" data-content="archive">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-guidang"></use>
+                                </svg>
+                                归档
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item item">
+                    <a href="javascript:;">
+                        <svg class="icon" aria-hidden="true" style="font-size:25px">
+                            <use xlink:href="#icon-gengduo"></use>
+                        </svg>
+                        更多作品
+                    </a>
+                    <dl class="layui-nav-child" style="text-align: left;">
+                        <dd>
+                            <a href="../个人主页/myblog-home-master/index.html">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-daohang"></use>
+                                </svg>
+                                个人导航页
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="https://123asdasdnk.github.io">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-zhuye"></use>
+                                </svg>
+                                旧版个人博客
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="../Web音乐播放器/index.html">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-a-Sheetmusic"></use>
+                                </svg>
+                                音乐
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="http://127.0.0.1:5500/博客后台管理/page/login/login.html">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-houtaiguanli"></use>
+                                </svg>
+                                博客后台管理
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item item">
+                    <a href="#" id="about" data-content="about">
+                        <svg class="icon" aria-hidden="true" style="font-size:25px">
+                            <use xlink:href="#icon-guanyuwomen"></use>
+                        </svg>
+                        关于笔者
+                    </a>
+                </li>
+
+
+                <!-- 黑暗模式-->
+                <div class="layui-form item">
+                    <div class="layui-form-item">
+                        <input type="checkbox" name="CCC" value="2" lay-skin="switch">
+                        <div lay-checkbox>
+                            <i class="layui-icon layui-icon-moon"></i> |
+                            <i class="layui-icon layui-icon-light"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 用户模块 -->
+                <li class="layui-nav-item item" lay-unselect>
+                    <a href="javascript:;" id="user-avatar">
+                        <img src="./static/img/OIP.jpg" class="layui-nav-img" id="avatar-img">
+                    </a>
+                    <dl class="layui-nav-child" style="text-align: left;" id="user-menu">
+                        <!-- 登录前显示 -->
+                        <dd id="login-option">
+                            <a href="./login.html" onclick="toggleLoginOption()">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-denglu"></use>
+                                </svg>
+                                登录
+                            </a>
+                        </dd>
+                        <!-- <dd class="logged-in" style="display: none;">
+                            <a href="javascript:;">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-shezhi"></use>
+                                </svg>
+                                设置
+                            </a>
+                        </dd>-->
+                        <!-- 登录后显示 -->
+
+                        <dd class="logged-in" style="display: none;">
+                            <a href="javascript:;">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-gerenxinxi"></use>
+                                </svg>
+                                <span id="user-nickname">个人信息</span>
+                                <div id="user-role">角色</div>
+                            </a>
+                        </dd>
+
+                        <hr class="logged-in" style="display: none;">
+                        <dd class="logged-in" style="display: none;">
+                            <a href="index.html" id="exit">
+                                <svg class="icon" aria-hidden="true" style="font-size:25px">
+                                    <use xlink:href="#icon-tuichu"></use>
+                                </svg>
+                                退出
+                            </a>
+                        </dd>
+                    </dl>
+                </li>
+
+            </ul>
+        </div>
+        <!-- 返回 -->
+        <!-- <button id="topBtn" title="Go to top">Top</button> -->
+
+        <!-- 底部侧边音乐播放器 -->
+        <div id="xf-MusicPlayer" data-cdnName="https://player.xfyun.club/js" data-themeColor="xf-sky"
+            data-songList="7266119141">
+            <!-- 这里的歌单id可以自己改，网易云音乐的,注意vip的不能听 -->
+            <!-- 中文歌单: 2879834142 -->
+            <!-- 纯音乐1: 2420545066 -->
+            <!-- 纯音乐2: 7266119141 -->
+            <!-- 英文: 2659383851 -->
+            <!-- 日语: 7453499124-->
+        </div>
+        <script src="https://player.xfyun.club/js/xf-MusicPlayer/js/xf-MusicPlayer.min.js"></script>
+
+        <!-- 这些内容会被替换  -->
+        <div class="replace">
+
+            <!-- 站点标题 和 一言 -->
+            <div class="backgroundimg">
+                <div class="title" style=" text-shadow: 5px 5px 5px rgba(133, 198, 3, 0.5);">自然选择の小站</div>
+                <!-- 打字机效果 -->
+                <span id="typed" style="white-space: pre-wrap;line-height: 30px;"></span>
+                <img src="./static/img/4.jpg">
+            </div>
+
+
+
+
+
+            <div class="content">
+
+                <div class="indexprofile">
+                    <div class="indexprofile-avatar">
+                        <img src="./static/img/鬼刀.jpg" alt="Profile Avatar">
+                    </div>
+                    <div class="indexprofile-info">
+                        <div class="indexprofile-name">乞力马扎罗</div>
+                        <div class="indexprofile-description">本人丰富，无法简介</div>
+                        <ul class="indexprofile-stats" style="display: inline;">
+                            <li>文章数: <span id="articlenumber">10</span></li>
+                            <li>标签数: <span id="tagnumber">5</span></li>
+                            <li>分类数: <span id="categorynumber">3</span></li>
+                        </ul>
+                        <a href="https://github.com/123asdasdnk">
+                            <svg class="icon" aria-hidden="true" style="font-size: 20px;">
+                                <use xlink:href="#icon-github"></use>
+                            </svg>
+                        </a>
+                        <a href="https://space.bilibili.com/520378629?spm_id_from=333.999.0.0">
+                            <svg class="icon" aria-hidden="true" style="font-size: 20px;">
+                                <use xlink:href="#icon-bilibili"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="articles-container" style="width: 40%; margin-right: 200px;">
+                    <div class="article">
+                        <a href="article.html?id=">
+                            <img src="./static/img/鬼刀.jpg" alt="Article Thumbnail" style="height: 100%;">
+                            <div class="article-content">
+                                <h2 class="article-title">文章标题 1</h2>
+                                <div class="article-meta">2024年9月20日 | 作者: 张三</div>
+                                <p class="article-summary">这是文章摘要部分，简要介绍文章内容。</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="article">
+                        <a href="article2.html">
+                            <img src="thumbnail2.jpg" alt="Article Thumbnail">
+                            <div class="article-content">
+                                <h2 class="article-title">文章标题 2</h2>
+                                <div class="article-meta">2024年9月19日 | 作者: 李四</div>
+                                <p class="article-summary">这是文章摘要部分，简要介绍文章内容。</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 你可以根据需要添加更多文章 -->
+                </div>
+
+
+            </div>
+
+
+            <hr>
+            <!-- 评论模块 -->
+
+
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="footer" style="bottom: 0%;  margin-top: 50px; display: none;">
+            <div class="footer-content">
+                <p>© 2024 自然选择の小站. All Rights Reserved.</p>
+                <p>Designed by 乞力马扎罗</p>
+                <p>禁止对网站的任何形式攻击，使用必须获得作者许可，否则按侵权处理</p>
+            </div>
+        </footer>
+
+    </div>
+    <script src="./static/js/index.js"></script>
+</body>
+
+<script>
+
+    // ---------------页面跳转-------
+    document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.querySelectorAll('.layui-nav-item, .layui-nav-child dd');
+        const replaceDiv = document.querySelector('.replace');
+
+        // 关于我界面跳转
+        const getabout = document.getElementById('about');
+
+        getabout.addEventListener('click', function () {
+            const content = this.getAttribute('data-content');
+
+            loadContent(content);
+        });
+
+
+        // 归档页面跳转
+        const getarchive = document.getElementById('archive');
+        console.log(getarchive);
+
+        getarchive.addEventListener('click', function () {
+            const content = this.getAttribute('data-content');
+            console.log(content);
+            loadContent(content);
+        });
+
+        function loadContent(content) {
+            axios.get(`${content}.html`) //${content}
+                .then(response => {
+                    console.log('Content loaded successfully:', response.data);
+
+                    replaceDiv.innerHTML = response.data;
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    replaceDiv.innerHTML = '<h1>Error</h1><p>Failed to load content.</p>';
+                });
+        }
+    });
+
+    // -----------------
+    $(document).ready(function () {
+        renderPersonalInfo();
+        fetchArticleIds();
+    });
+
+    // ------------------------------------
+    // 个人信息模块渲染
+    //先请求数据
+    function renderPersonalInfo() {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://localhost:8081/article/getAllArticleList',
+            method: 'GET',
+            success: function (data) {
+                console.log('Fetched articles:', data); // 打印获取到的数据
+                //渲染个人信息模块的文章数目
+                console.log(data.length);
+                document.getElementById("articlenumber").innerHTML = data.length;
+
+            },
+            error: function (error) {
+                console.error('Error fetching article IDs:', error);
+            }
+        });
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://localhost:8081/tag/getTagList',
+            method: 'GET',
+            success: function (data) {
+                console.log('TagList is:' + data); // 打印获取到的数据
+                console.log(data.length);
+                document.getElementById("tagnumber").innerHTML = data.length;
+
+
+            },
+            error: function (error) {
+                console.error('出错啦', error);
+            }
+        });
+
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://localhost:8081/category/getCategoryList',
+            method: 'GET',
+            success: function (data) {
+                console.log('TagList is:' + data); // 打印获取到的数据
+                console.log(data.length);
+                document.getElementById("categorynumber").innerHTML = data.length;
+
+
+            },
+            error: function (error) {
+                console.error('出错啦', error);
+            }
+        });
+    }
+
+
+    //--------------文章动态渲染----------------
+    //先请求数据
+    function fetchArticleIds() {
+        $.ajax({
+            xhrFields: {
+                withCredentials: true
+            },
+            url: 'http://localhost:8081/article/getarticlelist',
+            method: 'GET',
+            success: function (data) {
+                console.log('Fetched articles:', data); // 打印获取到的数据
+
+                //渲染文章列表
+                renderArticles(data);
+            },
+            error: function (error) {
+                console.error('Error fetching article IDs:', error);
+            }
+        });
+    }
+
+
+
+
+
+    //渲染
+    function renderArticles(articles) {
+
+        const container = $('.articles-container');
+        container.empty(); // 清空容器
+
+        articles.forEach(article => {
+
+
+
+            //获取随机1到7,用于随机背景图
+            // const randomNumber = Math.floor(Math.random() * 7) + 1;
+            const randomNumber = article.article_id % 10 >= 9 ? 9 : article.article_id % 10 + 1;
+
+            $.ajax({
+                url: 'http://localhost:8081/tag/getTagById',
+                method: 'GET',
+                data: {
+                    tag_id: article.tag_id
+                },
+                success: function (data) {
+                    console.log("标签为:" + data.tag_name);
+                    const articleHtml = `
+            <div class="article" id="article" data-content="article">
+                <a href="article.html?id=${article.article_id}">
+                    <img src="./static/img/${randomNumber}.webp" alt="Article Thumbnail" style="width: 50%; height: auto">
+                    <div class="article-content" style= "float:left;">
+                        <h2 class="article-title" style="font-size: 20px">${article.title}</h2>
+                        <div class="article-meta">
+                            ${new Date(article.upload_time).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })} | 作者: ${article.author}
+                        </div>
+                        <div> 标签: <span class="article-tag">${data.tag_name}</span></div>
+                        <p class="article-summary">${article.desc}</p>
+                    </div>
+                </a>
+            </div>
+        `;
+                    container.append(articleHtml);
+                }
+            })
+
+
+            //     const articleHtml = `
+            //     <div class="article" id="article" data-content="article">
+            //         <a href="article.html?id=${article.article_id}">
+            //             <img src="./static/img/${randomNumber}.webp" alt="Article Thumbnail" style="width: 50%; height: auto">
+            //             <div class="article-content" style= "float:left;">
+            //                 <h2 class="article-title" style="font-size: 20px">${article.title}</h2>
+            //                 <div class="article-meta">
+            //                     ${new Date(article.upload_time).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })} | 作者: ${article.author}
+            //                 </div>
+            //                 <div> 标签: <span class="article-tag">${tagName}</span></div>
+            //                 <p class="article-summary">${article.desc}</p>
+            //             </div>
+            //         </a>
+            //     </div>
+            // `;
+            //     container.append(articleHtml);
+        });
+        console.log('Articles rendered successfully');
+    }
+
+    //登录逻辑
+    let islogin = false;
+
+    //获取session,当前登录的用户
+    let data = sessionStorage.getItem("loginUser");
+    let user = JSON.parse(data);
+
+    if (user != null) {
+        console.log(user.nickname);
+        console.log(user)
+        islogin = true;
+    }
+
+    //islogin为true就渲染用户模块，显示登录后的选项，有个人信息页，退出按钮，并清除浏览器的所有session
+    //islogin为false，只显示登录按钮，
+
+    // 根据登录状态动态渲染用户模块内容
+    console.log(islogin);
+    if (islogin) {
+        // 显示登录后的选项
+        document.getElementById("login-option").style.display = "none";
+        document.querySelectorAll(".logged-in").forEach(item => {
+            item.style.display = "block";
+        });
+        // 设置头像路径
+        document.getElementById("avatar-img").src = "./static/img/鬼刀.jpg";
+        //渲染个人信息为登录人的昵称
+        document.getElementById("user-nickname").innerText = user.nickname;
+        document.getElementById("user-role").innerText = "角色:" + user.role;
+
+        // 退出按钮点击事件
+        document.getElementById("exit").addEventListener("click", function () {
+            islogin = false;
+
+            console.log(islogin)
+
+            // 清除所有session
+            sessionStorage.clear();
+            // 刷新页面或其他操作
+            // 更新界面显示状态
+            document.getElementById("login-option").style.display = "block";
+            document.querySelectorAll(".logged-in").forEach(item => {
+                item.style.display = "none";
+            });
+        });
+
+    } else {
+        // 只显示登录按钮
+        document.getElementById("login-option").style.display = "block";
+        document.querySelectorAll(".logged-in").forEach(item => {
+            item.style.display = "none";
+        });
+    }
+    console.log(islogin)
+
+
+
+</script>
+
+</html>
